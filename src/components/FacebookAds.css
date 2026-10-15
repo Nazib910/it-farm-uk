@@ -1,0 +1,203 @@
+/* Facebook ads: the one bold band on the page. Marigold ground, ink type,
+   and the featured plan inverted to ink so it reads first. */
+.fb-section {
+  background: var(--marigold);
+  color: var(--ink);
+  padding-block: 112px;
+}
+
+.fb-grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.fb-grid > * {
+  min-width: 0;
+}
+
+.fb-intro p {
+  margin-top: 20px;
+  max-width: 52ch;
+  font-size: 1.1875rem;
+}
+
+.fb-included {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.fb-included li {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(23, 32, 27, 0.3);
+}
+
+.fb-pricing > h3 {
+  font-size: 1.5rem;
+}
+
+.fb-tiers {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 20px;
+}
+
+.fb-tier {
+  padding: 28px;
+  border: 2px solid var(--ink);
+}
+
+.fb-tier-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.fb-tier h4 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.fb-price {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.fb-price span {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.fb-tier-summary {
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+.fb-tier-fit {
+  margin-top: 6px;
+  font-size: 0.975rem;
+}
+
+.fb-features {
+  list-style: none;
+  margin: 20px 0 28px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.fb-features li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.fb-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 10px;
+  height: 2px;
+  background: currentColor;
+}
+
+/* Buttons on the band are ink, so the plan behind them stays readable. */
+.fb-section .button {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.fb-section .button:hover {
+  background: var(--field);
+  border-color: var(--field);
+}
+
+/* The featured plan: ink ground, marigold button. Declared after the rules above
+   so it wins at equal specificity. */
+.fb-tier-highlight {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.fb-tier-highlight .button {
+  background: var(--marigold);
+  color: var(--ink);
+  border-color: var(--marigold);
+}
+
+.fb-tier-highlight .button:hover {
+  background: var(--marigold-hover);
+  border-color: var(--marigold-hover);
+}
+
+.fb-note {
+  margin-top: 28px;
+  max-width: 60ch;
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 860px) {
+  .fb-section {
+    padding-block: 80px;
+  }
+
+  .fb-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/* Scroll-linked motion. The band unrolls as it enters the viewport, and the
+   content rises with it. Only applied where the browser supports scroll-driven
+   animations and the visitor has not asked for reduced motion. Anywhere else
+   the section is simply visible. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fb-section {
+      animation: fb-band-unroll linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+
+    .fb-intro,
+    .fb-pricing {
+      animation: fb-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+  }
+}
+
+@keyframes fb-band-unroll {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes fb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(56px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

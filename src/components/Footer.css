@@ -1,0 +1,5 @@
+/* Footer legal lines: the registered name and office address sit under the copyright line. */
+.footer-legal p + p {
+  margin-top: 6px;
+  font-size: 0.875rem;
+}
